@@ -1,16 +1,32 @@
-# This is a sample Python script.
+"""This code was copied from the supplied search_algorithms.py file. Features functions
+for recursive binary search, iterative binary search, and sequential search."""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def recursive_binary_search(arr, target, low, high):
+    if low > high:
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return recursive_binary_search(arr, target, low, mid - 1)
+    else:
+        return recursive_binary_search(arr, target, mid + 1, high)
 
+def iterative_binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] > target:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return -1
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+def sequential_search(arr, target):
+    for index, value in enumerate(arr):
+        if value == target:
+            return index
+    return -1
