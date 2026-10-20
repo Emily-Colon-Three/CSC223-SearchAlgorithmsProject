@@ -18,9 +18,8 @@ def verify_presence(list, index, target):
 def find_median(values) -> int | float:
     if len(values) % 2 == 1: # For odd-length lists
         return values[len(values) // 2]
-    else: # for even-length lists
-        middle_values = values[len(values) // 2 - 1] + values[len(values) // 2]
-        return middle_values / 2
+    else: # for even-length list
+        return (values[len(values) // 2 - 1] + values[len(values) // 2]) / 2
 
 # Outer loop, for going through each data size
 for size in data_sizes:
@@ -74,6 +73,11 @@ for size in data_sizes:
         verify_presence(data, index_r, target)
         verify_presence(data, index_i, target)
         verify_presence(data, index_s, target)
+
+    # Ensures all time arrays are sorted before medians are found
+    times_recursive.sort()
+    times_iterative.sort()
+    times_sequential.sort()
 
     # Displays the median times across the ten trials for each of the three searches
     print('\n')
