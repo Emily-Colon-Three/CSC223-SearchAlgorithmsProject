@@ -3,16 +3,22 @@ from algorithms import iterative_binary_search
 from algorithms import sequential_search
 import random
 import time
+import csv
 
 data_sizes = [5_000, 50_000, 100_000, 150_000, 1_000_000]
 total_trials = 10
 
-# Simple funtion which checks if a given target is in the list, asserting whether that it is the case.
-def verify_presence(list, index, target):
+# Dictionary which will be used to gather data for the csv output of results
+export_data = [
+    ["Data Size", "Recursive Binary Search", "Iterative Binary Search", "Sequential Binary Search"]
+]
+
+# Simple function which checks if a given target is in the list, asserting whether that it is the case.
+def verify_presence(array, index, targ):
     if index != -1:
-        assert list[index] == target
+        assert array[index] == targ
     else:
-        assert target not in list
+        assert targ not in array
 
 # Function which finds the median value of a numerical list
 def find_median(values) -> int | float:
@@ -86,3 +92,13 @@ for size in data_sizes:
     print("Iterative Binary: ", find_median(times_iterative))
     print("Sequential: ", find_median(times_sequential))
     print('\n')
+
+    # Adds times to the data for csv output
+    export_data.append(
+        [size, find_median(times_recursive), find_median(times_iterative), find_median(times_sequential)]
+    )
+
+# Writes export_data to csv file row by row
+with open("results.csv", 'w', newline='\n') as file:
+    writer = csv.writer(file)
+    writer.writerow(export_data)
